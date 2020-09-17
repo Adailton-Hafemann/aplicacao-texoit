@@ -7,16 +7,10 @@
       <span class="navbar-brand" style="margin-left: 20px;" href="#">Piores filmes</span>
     </form>
     <div class="collapse navbar-collapse" id="navbarToggleExternalContent"> 
-      <ul class="navbar-nav mr-auto">        
-        <!-- <li class="nav-item" *ngFor="let page of pages; let i = index" routerDirection="root" [routerLink]="[page.url]">
-          <a class="nav-link" href="#">{{ page.title }}</a>
-        </li> -->
-        <li class="nav-item"><a routerLink="/dashboard" routerLinkActive="active" class="nav-link" href="#">First Component</a></li>
-        <li class="nav-item"><a routerLink="/list" routerLinkActive="active" class="nav-link" href="#">First Component</a></li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="#">Lista</a>
-        </li>         -->
-      </ul>      
+      <ul class="navbar-nav mr-auto" data-toggle="collapse" data-target="#navbarToggleExternalContent">
+        <li class="nav-item"><a routerLink="/dashboard" routerLinkActive="active" (click)="open()" class="nav-link" href="#">Dashboard</a></li>
+        <li class="nav-item"><a routerLink="/list" routerLinkActive="active" (click)="open()" class="nav-link" href="#">List movies</a></li>        
+      </ul>
     </div>
   </nav>    
 </section>

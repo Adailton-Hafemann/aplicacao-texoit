@@ -14,26 +14,36 @@
               <th scope="col">
                 <div class="form-group">
                   <label for="yearInput" class="text-center">Year</label>
-                  <input type="text" class="form-control" id="yearInput">                  
+                  <input type="text" [(ngModel)]="filterYear" class="form-control" name="yearInput" id="yearInput" maxlength="4" (ngModelChange)="filtraPorAno(filterYear)">
+                </div>                                
+                <div *ngIf="yearInvalid" class="alert alert-danger">                  
+                    Ano inválido                  
                 </div>                
               </th>
               <th scope="col">
                 <label class="text-center">Title</label>
               </th>
               <th scope="col">
-                <label class="text-center">Winner</label></th>
+                <div>
+                  <label class="text-center">Winner</label>
+                  <select [(ngModel)]="filterWinner" class="form-control" (ngModelChange)="filtraWinner(filterWinner)">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                  </select>
+                </div>
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="!errorConsulta">
             <tr *ngFor="let item of responstaTeste; let i = index">
               <th>{{item.id}}</th>
               <td>{{item.year}}</td>
               <td>{{item.title}}</td>
               <td>{{item.winner}}</td>
             </tr>    
-          </tbody>
+          </tbody>          
         </table>
-        <nav>
+        <nav *ngIf="!errorConsulta">
           <ul class="pagination">        
             <li class="page-item" [ngClass]="{'disabled': pageMode.first}">
               <a class="page-link" (click)="anterior()">Previous</a>
@@ -44,9 +54,21 @@
             <li class="page-item" [ngClass]="{'disabled': pageMode.last}">
               <a class="page-link" (click)="proximo()">Next</a>
             </li>
+            <li class="page-item">
+              <select [(ngModel)]="filterSize" class="form-control" (ngModelChange)="filtraSize(filterSize)">
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+              </select>
+            </li>
           </ul>
         </nav>
-      </div>  
+        <div *ngIf="errorConsulta">
+          <div>
+            <h4>Nenhum resultado encontrado....</h4>            
+          </div>                     
+      </div>
+      </div>      
     </div>
   </div>  
 </section>

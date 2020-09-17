@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'aplicacao-texoit';
+  openMenu = false;
   public pages = [
     {
       title: 'Dashboard',
@@ -18,5 +18,11 @@ export class AppComponent {
       url: '/list',
       icon: 'pricetag'
     }
-  ];
+  ]; 
+  
+  open() {
+    console.log("teste")
+    this.openMenu = !this.openMenu;
+  }
+
 }
