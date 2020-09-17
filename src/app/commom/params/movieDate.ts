@@ -1,6 +1,6 @@
 export class MovieDate {
-    page: string;
-    size: string;
-    winner: string;
+    page: number;
+    size: number;
+    winner: boolean;
     year: string;
 }

@@ -15,9 +15,9 @@ export class ConfigService {
 
     getMovieDate(parameters: MovieDate) : Observable<any> {
         let params = new HttpParams();
-        params = params.set('page', parameters.page);
-        params = params.set('size', parameters.size);
-        params = params.set('winner', parameters.winner);
+        params = params.set('page', parameters.page.toString());
+        params = params.set('size', parameters.size.toString());
+        params = params.set('winner', parameters.winner.toString());
         params = params.set('year', parameters.year);
         return this.http.get(this.url, {params});
     }

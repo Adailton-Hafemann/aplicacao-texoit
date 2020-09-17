@@ -16,9 +16,9 @@ export class DashboardComponent {
 
   busca() {
     let mov = new MovieDate();
-    mov.page = '0';
-    mov.size = '10';
-    mov.winner = 'false';
+    mov.page = 0;
+    mov.size = 10;
+    mov.winner = false;
     mov.year = '1990';
     this.configService.getMovieDate(mov).subscribe(res => {
       console.log(res);
