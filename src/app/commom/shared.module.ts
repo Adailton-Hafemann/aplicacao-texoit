@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ConfigService } from './service/generic.service';
 
+
 @NgModule({
   imports: [
     CommonModule,

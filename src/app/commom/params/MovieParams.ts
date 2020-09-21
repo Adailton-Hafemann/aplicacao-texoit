@@ -1,4 +1,4 @@
-export class MovieDate {
+export class MovieParams {
     page: number;
     size: number;
     winner: boolean;

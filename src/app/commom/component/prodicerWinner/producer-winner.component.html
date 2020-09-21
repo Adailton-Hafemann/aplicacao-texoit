@@ -1,0 +1,69 @@
+<div class="card">
+    <div class="card-header">
+        Producers with longest and shortest between wins
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div>
+                <h4>Maximun</h4>
+            </div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <label class="text-center">Producer</label>
+                        </th>
+                        <th scope="col">
+                            <label for="yearInput" class="text-center">Interval</label>
+                        </th>
+                        <th scope="col">
+                            <label class="text-center">Previous Year</label>
+                        </th>
+                        <th scope="col">
+                            <label class="text-center">Fallowing Year</label>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of produtorMax">
+                        <th>{{item.producer}}</th>
+                        <td>{{item.interval}}</td>
+                        <td>{{item.previousWin}}</td>
+                        <td>{{item.followingWin}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <div>
+                <h4>Minimum</h4>
+            </div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <label class="text-center">Producer</label>
+                        </th>
+                        <th scope="col">
+                            <label for="yearInput" class="text-center">Interval</label>
+                        </th>
+                        <th scope="col">
+                            <label class="text-center">Previous Year</label>
+                        </th>
+                        <th scope="col">
+                            <label class="text-center">Fallowing Year</label>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of produtorMin">
+                        <th>{{item.producer}}</th>
+                        <td>{{item.interval}}</td>
+                        <td>{{item.previousWin}}</td>
+                        <td>{{item.followingWin}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

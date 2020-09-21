@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ConfigService } from './../../commom/service/generic.service';
-import { MovieDate } from './../../commom/params/movieDate';
+import { MovieParams } from './../../commom/params/MovieParams';
 import { PageMode } from './../../commom/object/pageMode';
+import { MovieDate } from 'src/app/commom/object/MovieDate';
+import { YearWinner } from 'src/app/commom/object/YearWinner';
 
 @Component({
   selector: 'list-root',
@@ -11,29 +13,28 @@ import { PageMode } from './../../commom/object/pageMode';
 })
 export class ListComponent implements OnInit {
 
-  responstaTeste: any;
-  resposta = false;
   pageMode: PageMode;
   yearInvalid: boolean;
-  anoDigitado: string;
-  completouAno: boolean;
-  winnerDigitado: boolean;
-  sizeSelecionado: number;
+  completedYear: boolean;
+  winnerDigitado: boolean;  
   filterYear: string;
   filterWinner: boolean;
-  filterSize: number;
-  errorConsulta: boolean;
+  filterSize: number;  
+  movieDate: Array<YearWinner>;
+  noResultFound: boolean;  
 
   private timeoutValue: any;
   
   constructor(private configService: ConfigService) { }
 
 
+  /**
+   * Inicia o component.
+   */
   ngOnInit() {
-    this.completouAno = true;
-    this.winnerDigitado = false;
-    this.sizeSelecionado = 2;
-    let mov = new MovieDate();
+    this.completedYear = true;
+    this.winnerDigitado = false;    
+    let mov = new MovieParams();
     mov.page = 0;
     mov.size = 2;
     mov.winner = false;
@@ -43,69 +44,105 @@ export class ListComponent implements OnInit {
     this.filterWinner = false;
     this.filterSize = 2;
   }
-
-  verificaUsuarioDigitando() {
-    this.yearInvalid = !this.completouAno;
+  
+  /**
+   * Verifica se o usuário acabou de informar o ano.
+   */
+  checkuserByTyping() {
+    this.yearInvalid = !this.completedYear;
   }
 
-  filtraWinner(winner: boolean) {
+  /**
+   * Filtra por vencedor ou perdedor.
+   * @param winner - true se é vencedor.
+   */
+  filterByWinner(winner: boolean) {
     this.winnerDigitado = winner;
-    this.busca(0);
+    this.getMovie(0);
   }
 
-  filtraPorAno(ano: string) {
-    this.completouAno = true;     
+  /**
+   * Verifica se o ano informado é valido.
+   * @param year Ano informado.
+   */
+  checkYearValid(year) {
+    this.completedYear = true;     
     clearTimeout(this.timeoutValue);
-    const pattern = /[0-9]{4}/;
-    if (pattern.test(ano)) {
+    const pattern = /^\d+$/;
+    if (pattern.test(year)) {
       this.yearInvalid = false;
-      if (ano.length === 4) {
-        debugger;
-        this.anoDigitado = ano;
-        this.busca(0);
+      if (year.length === 4) {        
+        this.filterYear = year;
+        return true;
       } else {        
-        this.completouAno = false;
+        this.completedYear = false;
         this.timeoutValue = setTimeout(() => {
-          this.verificaUsuarioDigitando();
+          this.checkuserByTyping();
         }, 1000);
       }          
     } else {
       this.yearInvalid = true;
-    }      
+      return false;
+    } 
+  }
+  
+  /**
+   * Filtra por ano.
+   * @param year ano informado;
+   */
+  filterByYear(year: string) {
+    if (this.checkYearValid(year)) {
+      this.getMovie(0);
+    }    
   }
 
-  filtraSize(size: number) {
-    this.sizeSelecionado = size;    
-    this.busca(0);
+  /**
+   * Aumenta o limite da busca.
+   */
+  filterBySize() {    
+    this.getMovie(0);
 
   }
 
-  anterior() {
-    this.busca(this.pageMode.pageSelected - 1);
+  /**
+   * Retorna uma pagina da busca.
+   */
+  previous() {
+    this.getMovie(this.pageMode.pageSelected - 1);
   }
 
-  proximo() {
-    this.busca(this.pageMode.pageSelected + 1);    
+  /**
+   * Avança uma pagina da busca;
+   */
+  next() {
+    this.getMovie(this.pageMode.pageSelected + 1);    
   }
 
-  busca(pagina: number) {
-    let mov = new MovieDate();
-    mov.page = pagina;
+  /**
+   * Monta as informações para realizar a busca.
+   * @param page pagina da consulta.
+   */
+  getMovie(page: number) {
+    let mov = new MovieParams();
+    mov.page = page;
     mov.size = this.filterSize;
     mov.winner = this.winnerDigitado;
-    mov.year = this.anoDigitado;
+    mov.year = this.filterYear;
     this.getMovieDate(mov);
   }
 
-  getMovieDate(mov: MovieDate) {
-    this.configService.getMovieDate(mov).subscribe(res => {
-      this.errorConsulta = res.content.length < 1;
-      this.responstaTeste = res.content;
-      this.pageMode = new PageMode(res.totalPages, res.totalElements, res.last, res.first);
-      this.resposta = true;
-      this.pageMode.pageSelected = res.number;
+  /**
+   * Realiza a consulta no serviço.   
+   * @param mov Informações para realizar a consulta.
+   */
+  getMovieDate(mov: MovieParams) {
+    this.configService.getMovieDate(mov).subscribe(res => {      
+      this.noResultFound = res.content.length < 1;
+      this.movieDate = res.content;
+      this.pageMode = new PageMode(res.totalPages, res.totalElements, res.last, res.first);      
+      this.pageMode.pageSelected = res.pageable.pageNumber;
     }, () => {
-      this.errorConsulta = true;
+      this.noResultFound = true;
     });
   }
 }

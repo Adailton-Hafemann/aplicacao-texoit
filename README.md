@@ -1,6 +1,13 @@
 # AplicacaoTexoit
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.1.
+Instruções para a aplicação rodar.
+
+baixar o projeto para o ambiente local.
+Ir no repositorio local aonde o projeto foi baixado, acessar ./aplicacao-toxoit/
+na pasta raiz executar o comando npm install.
+
+Apos o npm install terminar executar o comando ng serve.
+
 
 ## Development server
 

@@ -9,11 +9,21 @@ import { SharedModule } from './commom/shared.module';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ListComponent } from './component/list/list.component';
 
+import { YearWinnerComponent } from './commom/component/yearWinner/year-winner.component';
+import { YearWithMultipleWinnerComponent } from './commom/component/yearWithMultipleWinner/year-with-multiple-winner.component';
+import { StudiosWinnerComponent } from './commom/component/studioWinner/studio-winner.component';
+import { ProducerWinnerComponent } from './commom/component/prodicerWinner/producer-winner.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    ListComponent
+    ListComponent,
+    YearWinnerComponent,
+    ProducerWinnerComponent,
+    StudiosWinnerComponent,
+    YearWithMultipleWinnerComponent
   ],
   imports: [
     BrowserModule,

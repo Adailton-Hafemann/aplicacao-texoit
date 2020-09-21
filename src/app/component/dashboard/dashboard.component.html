@@ -1,4 +1,19 @@
-<div>
-  Legal pasosu aquio dashboard
-  <button (click)="busca()">Busca</button>
-</div>
+<section class="content-dashboard">
+  <div class="row">
+    <div class="col col-md col-sm-12">
+      <app-year-with-multiple-winner></app-year-with-multiple-winner>
+    </div>
+    <div class="col col-md col-sm-12">
+      <app-studio-winner></app-studio-winner>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col col-md col-sm-12">
+      <app-producer-winner></app-producer-winner>  
+    </div>
+    <div class="col col-md col-sm-12">
+      <app-year-winner></app-year-winner>
+    </div>
+  </div>      
+</section>

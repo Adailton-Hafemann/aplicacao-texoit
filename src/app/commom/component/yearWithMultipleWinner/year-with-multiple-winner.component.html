@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-header">
+        List years with multiple winners
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <label class="text-center">Year</label>
+                        </th>
+                        <th scope="col">
+                            <label for="yearInput" class="text-center">Win Count</label>
+                        </th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of yearList">
+                        <th>{{item.year}}</th>
+                        <td>{{item.winnerCount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
